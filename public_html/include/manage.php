@@ -14,7 +14,12 @@ function __construct(){
     public function ManagePagination($table,$pageNumber){
         $b = $this->pagination($this->con,$table,$pageNumber,5);
         if($table == "category"){
-            $sql = "SELECT p.category_name AS category,c.category_name AS parent,p.status FROM category p LEFT JOIN category c ON p.parent_cat=c.cid ".$b["limit"];
+            $sql = "SELECT p.category_name AS category,c.category_name AS parent,p.status ,p.cid FROM category p LEFT JOIN category c ON p.parent_cat=c.cid ".$b["limit"];
+        }else if($table == "products"){
+            $sql ="SELECT p.pid,p.product_name,c.category_name,b.brand_name,p.product_price,p.product_stock,p.added_date,p.p_status FROM products p, brand b, category c WHERE p.bid=b.bid AND p.cid=c.cid  ".$b["limit"];
+        }
+        else{
+            $sql ="SELECT * FROM ".$table. " ".$b["limit"];
         }
 
         $result = $this->con->query($sql);
@@ -75,11 +80,88 @@ function __construct(){
     return ["pagination"=>$pagination,"limit"=>$limit];
     }
 
+    
+    public function deleteRecord($table,$id,$primaryKey){
+        if($table =="category"){
+            $pre_stmnt = $this->con->prepare("SELECT cid FROM category WHERE parent_cat=?");
+            $pre_stmnt->bind_param("i",$id);
+            $pre_stmnt->execute();
+            $result = $pre_stmnt->get_result() or die($this->con->error);
+
+            if($result->num_rows >0){
+                    return "DEPENDENT CATEGORY";
+            }else{
+                    $pr_st = $this->con->prepare("DELETE FROM ".$table."  WHERE ".$primaryKey." = ? ");
+                    $pr_st->bind_param("i",$id);
+                    $result = $pr_st->execute() or die($this->con->error);
+
+                    if($result){
+                            return "CATEGORY_DELETED";
+                    }
+
+            }
+
+        }else{
+            $pr_st = $this->con->prepare("DELETE FROM ".$table."  WHERE ".$primaryKey." = ? ");
+            $pr_st->bind_param("i",$id);
+            $result = $pr_st->execute() or die($this->con->error);
+
+            if($result){
+                    return "DELETED";
+            }
+        }
+        
+    }
+
+    public function getOneRow($table,$primaryKey,$id){
+        $pre_stmnt = $this->con->prepare("SELECT * FROM ".$table." WHERE ".$primaryKey." = ? ");
+        $pre_stmnt->bind_param("i",$id);
+        $pre_stmnt->execute() or die($this->con->error);
+        $result = $pre_stmnt->get_result();
+
+        if($result->num_rows == 1){
+
+            $row =$result->fetch_assoc();
+
+        }
+        return $row;
+    }
+
+    public function updateRecord($table,$where,$fields){
+
+        $sql = "";
+        $condition = "";
+
+        foreach($where as $key => $value){
+            $condition .= $key ."='".$value. "' AND ";
+
+
+        }
+        $condition = substr($condition,0,-5);
+        foreach($fields as $key => $value){
+            $sql .= $key ."='".$value. "', ";
+
+        }
+        $sql = substr($sql,0,-2);
+        $sql ="UPDATE ".$table." SET ".$sql." WHERE ".$condition;
+
+        if(mysqli_query($this->con,$sql)){
+
+            return "UPDATE_COMPLETE";
+        }
+
+
+
+    }
+
+
 
 
 }
-// $obj = new Manage();
-// echo "<pre>";
-// print_r($obj->ManagePagination("category",1));
-
+//$obj = new Manage();
+// // echo "<pre>";
+// // //print_r($obj->ManagePagination("category",1));
+// // echo $obj->deleteRecord("category",14,"cid");
+// print_r($obj->getOneRow("category","cid",7));
+//echo $obj->updateRecord("products",["pid"=>7],["cid"=>7,"bid"=>4,"product_name"=>"new1","product_price"=>"5000","product_stock"=>"35","added_date"=>"2019=4-25","p_status"=>1]);
 ?>

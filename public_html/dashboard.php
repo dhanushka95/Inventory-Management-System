@@ -81,7 +81,7 @@
                                         <h5 class="card-title">brands</h5>
                                         <p class="card-text">here u can make manage brands and add new brands</p>
                                         <a href="#" data-toggle="modal" data-target="#form_brand"  class="btn btn-primary">Add</a>
-                                        <a href="#" class="btn btn-primary">Manage</a>
+                                        <a href="manageBrand.php" class="btn btn-primary">Manage</a>
                                 </div>
                     </div>
              </div>
@@ -91,7 +91,7 @@
                                         <h5 class="card-title">product</h5>
                                         <p class="card-text">here u can make manage product and add new product</p>
                                         <a href="#" data-toggle="modal" data-target="#form_product"  class="btn btn-primary">Add</a>
-                                        <a href="#" class="btn btn-primary">Manage</a>
+                                        <a href="manageProduct.php" class="btn btn-primary">Manage</a>
                                 </div>
                     </div>
              </div>

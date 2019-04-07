@@ -27,17 +27,26 @@
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Product</th>
                     <th scope="col">Category</th>
-                    <th scope="col">Parent</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Added Date</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
+                    
                     </tr>
                 </thead>
-                <tbody id="getCategoryManage">
+                <tbody id="getProductManage">
                     <!-- <tr>
                     <th scope="row">1</th>
+                    <td>ic</td>
                     <td>Electronic</td>
-                    <td>mobile</td> 
+                    <td>kings</td>
+                    <td>1000</td>
+                    <td>10</td>
+                    <td>2015/5/10</td>
                     <td>
                         <a href="#" class ="btn btn-success btn-sm">Active</a>
                     </td>
@@ -54,7 +63,7 @@
     </div>
 <!-- add model -->
     <?php
-        include_once("./templates/updateCategory.php");
+        include_once("./templates/updateProduct.php");
     ?>
     
    
