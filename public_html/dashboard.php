@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <div class="card mx-auto" style="width: 20rem;">
+                <div class="card mx-auto">
                         <img src="./image/user.png" class="card-img-top mx-auto" alt="..." style="width: 60%;">
                         <div class="card-body">
                             <h5 class="card-title">Profile Info</h5>
@@ -60,7 +60,55 @@
         </div>
        
     </div>
+    <p></p>
+    <p></p>
 
+    <div class="container">
+        <div class="row">
+             <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                                <h5 class="card-title">categories</h5>
+                                <p class="card-text">here u can make manage category and add new category</p>
+                                <a href="#" data-toggle="modal" data-target="#form_category" class="btn btn-primary">Add</a>
+                                <a href="manageCategory.php" class="btn btn-primary">Manage</a>
+                        </div>
+                    </div>
+             </div>
+             <div class="col-md-4">
+                    <div class="card">
+                                <div class="card-body">
+                                        <h5 class="card-title">brands</h5>
+                                        <p class="card-text">here u can make manage brands and add new brands</p>
+                                        <a href="#" data-toggle="modal" data-target="#form_brand"  class="btn btn-primary">Add</a>
+                                        <a href="#" class="btn btn-primary">Manage</a>
+                                </div>
+                    </div>
+             </div>
+             <div class="col-md-4">
+                    <div class="card">
+                                <div class="card-body">
+                                        <h5 class="card-title">product</h5>
+                                        <p class="card-text">here u can make manage product and add new product</p>
+                                        <a href="#" data-toggle="modal" data-target="#form_product"  class="btn btn-primary">Add</a>
+                                        <a href="#" class="btn btn-primary">Manage</a>
+                                </div>
+                    </div>
+             </div>
+        </div>
+    </div>
+
+<!-- add modal -->
+<?php
+include_once("./templates/category.php");
+?>
+<?php
+include_once("./templates/brand.php");
+?>
+<?php
+include_once("./templates/product.php");
+?>
+    
    
 </body>
 </html>

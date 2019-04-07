@@ -11,30 +11,52 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script type ="text/javascript" src="./js/main.js"></script>
+    <script Type="text/javascript" src="./js/main.js"></script>
+    
 </head>
 <body>
        <!--- navigation bar -->
-    <?php include_once("./templates/header.php"); ?>
+    <?php include_once("./templates/header.php"); 
+    
+    ?>
 
     <br/><br/>
     <div class="container">
+    <?php
+    if(isset($_GET["msg"]) AND !empty($_GET["msg"])){
+        ?>
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?php echo $_GET["msg"]; ?>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+
+        <?php
+    }
+
+    ?>
+
+
         <div class="card mx-auto" style="width: 18rem;">
         <img src="./image/login.png" class="card-img-top mx-auto" style="width:60%;" alt="Login Icon">
         <div class="card-body">
          
-            <form>
+            <form id="login_form_user" name="login_form_user" onsubmit="return false" autocomplete="off">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <input type="email" class="form-control" name="log_email" id="log_email" placeholder="Enter email">
+                        <small id="log_email_error" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" class="form-control" name="log_password" id="log_password" placeholder="Password">
+                        <small id="log_password_error" class="form-text text-muted"></small>
+                    
                     </div>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>Login</button>
-                    <span><a href="#">Register</a></span>
+                    <button type="submit" name="login_user_button" id="login_user_button" class="btn btn-primary"><i class="fa fa-lock">&nbsp;</i>Login</button>
+                    <span><a href="register.php">Register</a></span>
         </form>
         
         </div>
