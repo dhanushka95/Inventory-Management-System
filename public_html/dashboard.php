@@ -47,7 +47,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">New order</h5>
                                     <p class="card-text">here u can make invoice and new order</p>
-                                    <a href="#" class="btn btn-primary">new oders</a>
+                                    <a href="newOrder.php" class="btn btn-primary">new oders</a>
                                 </div>
                             </div>
                         

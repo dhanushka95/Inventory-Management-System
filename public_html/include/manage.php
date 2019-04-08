@@ -154,6 +154,40 @@ function __construct(){
 
     }
 
+    public function storeCustomerData($orderDate,$customerName,$arryQty,$arryTotalQty,$arryPrice,$arryProductId,$SubTotal,$Discount,$Toatal,$paid,$Due,$paymentType){
+
+        $pre_stmnt = $this->con->prepare("INSERT INTO `invoice`( `customer_name`, `order_date`, `sub_total`, `discount`, `Total`, `paid`, `due`, `payment_type`) VALUES (?,?,?,?,?,?,?,?)");
+        $pre_stmnt->bind_param("ssddddds",$customerName,$orderDate,$SubTotal,$Discount,$Toatal,$paid,$Due,$paymentType);
+        $pre_stmnt->execute() or die($this->con->error);
+
+        $invoiceNo = $pre_stmnt->insert_id;
+
+        if($invoiceNo!= null){
+
+            for($i = 0; $i < count($arryQty); $i++){
+
+                $remainigQuantity = $arryTotalQty[$i] - $arryQty[$i];
+                if($remainigQuantity < 0){
+
+                    return "ORDER_FAIL_COMPLETE";
+                }else{
+
+                    $SQL = "UPDATE `products` SET `product_stock`='$remainigQuantity' WHERE pid= '".$arryProductId[$i]."'  ";
+                    $this->con->query($SQL);
+                }
+
+                $inser_invoice_details = $this->con->prepare("INSERT INTO `invoice_details`(`invoice_no`, `product_name`, `price`, `qty`) VALUES (?,?,?,?)");
+                $inser_invoice_details->bind_param("iddd",$invoiceNo,$arryProductId[$i],$arryPrice[$i],$arryQty[$i]);
+                $inser_invoice_details->execute() or die($this->con->error);
+            }
+
+
+            return "ORDER_INSERT";
+        }
+
+
+    }
+
 
 
 

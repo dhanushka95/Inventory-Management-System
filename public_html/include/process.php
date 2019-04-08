@@ -284,5 +284,78 @@ if(isset($_POST["product_name_update"])){
    
 }
 
+//Add new row in order item
+if(isset($_POST["getOrderRow"])){
+
+    $obj = new DatabaseOperation();
+    $rows = $obj->getAllRecord("products");
+
+    ?>
+        <tr>
+            <td><b class="number">1</b></td>
+            <td>
+            <select class="form-control pid"  name="pid[]" required>
+            <option value="">Choose product</option>
+            <?php
+                foreach($rows as $row){
+                    ?><option value="<?php echo $row["pid"]; ?>"> <?php echo $row["product_name"]; ?> </option><?php
+                }
+           
+
+            ?>
+            </select>
+            </td>
+            <td>
+            <input type="text" class="form-control tqty" readonly name="tqty[]" >
+            </td>
+            <td>
+            <input type="text" class="form-control qty" name="qty[]" required>
+            </td>
+            <td>
+            <input type="text" class="form-control price" name="price[]" readonly/>
+            </td>
+            
+            <span>
+            <input type="hidden" class="form-control form-control-sm pro_name" name="pro_name[]">
+            </span>
+            <td>Rs:<span class="amount">0</span></td>
+            
+        </tr>
+
+    <?php
+    exit();
+
+}
+
+if(isset($_POST["getPriceAndQty"])){
+    $mngr = new Manage();
+    $result = $mngr->getOneRow("products","pid",$_POST["id"]);
+    echo json_encode($result);
+    exit();
+}
+
+if(isset($_POST["orderDate"]) AND isset($_POST["orderCustomer"])){
+
+    $orderDate = $_POST["orderDate"];
+    $customerName = $_POST["orderCustomer"];
+
+    $arryQty = $_POST["qty"];
+    $arryTotalQty = $_POST["tqty"];
+    $arryPrice = $_POST["price"];
+    $arryProductID= $_POST["pid"];
+    
+    $SubTotal = $_POST["subTotal"];
+    $Discount = $_POST["discount"];
+    $Toatal = $_POST["netTotal"];
+    $paid = $_POST["paid"];
+    $Due = $_POST["due"];
+    $paymentType = $_POST["paymentType"];
+
+    $manager = new Manage();
+    echo $result = $manager->storeCustomerData($orderDate,$customerName,$arryQty,$arryTotalQty,$arryPrice,$arryProductID,$SubTotal,$Discount,$Toatal,$paid,$Due,$paymentType);
+
+
+}
+
 
 ?>
