@@ -182,7 +182,7 @@ function __construct(){
             }
 
 
-            return "ORDER_INSERT";
+            return $invoiceNo;
         }
 
 

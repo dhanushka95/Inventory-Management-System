@@ -315,10 +315,10 @@ if(isset($_POST["getOrderRow"])){
             <input type="text" class="form-control price" name="price[]" readonly/>
             </td>
             
-            <span>
-            <input type="hidden" class="form-control form-control-sm pro_name" name="pro_name[]">
-            </span>
-            <td>Rs:<span class="amount">0</span></td>
+            <td>
+            <input type="text" style="display:none;" class="form-control form-control-sm pro_name" name="pro_name[]">
+             Rs:<span class="amount">0</span>
+             </td>
             
         </tr>
 

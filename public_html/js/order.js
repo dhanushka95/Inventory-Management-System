@@ -29,6 +29,7 @@ jQuery(document).ready(function(){
             data : {getPriceAndQty:1,id:pid},
             success : function(data){
                
+              
                 tr.find(".tqty").val(data["product_stock"]);
                 tr.find(".pro_name").val(data["product_name"]);
                 tr.find(".qty").val(1);
@@ -149,14 +150,18 @@ jQuery(document).ready(function(){
                 data : $("#orderForm_getData").serialize(),
                 success : function(data){
                     
-                    if(data === "ORDER_INSERT"){
+                    if(data >0){
 
                         $("#orderForm_getData").trigger("reset");
 
                         if(confirm("Do you want to Print Invoice")){
 
-                         window.location.href = DOMAIN+"/include/invoice.php?"+invoiceData;
 
+                         window.open(
+                            DOMAIN+"/include/invoice.php?invoiveNo="+data+"&"+invoiceData
+                            ,
+                            '_blank'
+                          );
                         }
                     }else {
                         alert("ERROR");
