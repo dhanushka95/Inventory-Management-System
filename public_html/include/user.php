@@ -1,4 +1,5 @@
 <?php
+
     class user
     {
         private $con;
@@ -46,7 +47,7 @@
         }
 
         public function userLogin($email,$password){
-
+            
             $date = date("Y-m-d");
           
             $pre_st = $this->con->prepare("SELECT * FROM user WHERE email = ?");
@@ -58,18 +59,21 @@
             }else{
                 $row = $result->fetch_assoc();
                 if(password_verify($password,$row["password"])){
-                    $_SESSION["userid"] = $row["id"];
+
+                    $_SESSION["uid"] = $row["id"];
                     $_SESSION["username"] = $row["name"];
                     $_SESSION["last_login"] = $row["last_login"];
+                    $_SESSION["usertype"] = $row["usertype"];
 
-                    $last_login = date("Y-m-d h:m:s");
-                    $pre_st = $this->con->prepare("UPDATE user SET last_login = ? WHERE email = ? ");
-                    $pre_st->bind_param("ss",$last_login,$email);
+                    $last_login = date("Y-m-d H:i:s");
+                    
+                    $pre_stl = $this->con->prepare("UPDATE user SET last_login = ? WHERE email = ? ");
+                    $pre_stl->bind_param("ss",$last_login,$email);
 
-                    $result = $pre_st->execute() or die($this->con->error);
+                    $result = $pre_stl->execute() or die($this->con->error);
 
                     if($result){
-                        return "LOGIN COMLEATE";
+                        return "LOGIN_COMPLETE";
                     }else{
                         return "CONNECTION ERROR";
                     }
@@ -79,6 +83,19 @@
 
             }
 
+        }
+
+        public function UpdateUser($userName,$userId){
+
+            $pre_st = $this->con->prepare("UPDATE user SET name = ? WHERE id = ?");
+            $pre_st->bind_param("si",$userName,$userId);
+
+            $result = $pre_st->execute() or die($this->con->error);
+            if($result){
+                return "UPDATE_USER";
+            }else{
+            return "CANT_UPDATE_USER";
+            }
         }
     }
     

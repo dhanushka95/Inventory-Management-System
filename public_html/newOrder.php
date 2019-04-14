@@ -33,20 +33,7 @@
                     <div class="card-body">
                     
                     <form id="orderForm_getData" name="orderForm_getData" onsubmit="return false">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-lable" align="right">Order Date</label>
-                                <div class="col-sm-6">
-                                <input type="text" id="orderDate" name="orderDate" class="form-control form-control-sm " readonly value="<?php echo date("Y-d-m"); ?>">
-                                </div>
 
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-lable" align="right">Customer Name</label>
-                                <div class="col-sm-6">
-                                <input type="text" id="orderCustomer" name="orderCustomer" class="form-control form-control-sm " placeholder="Enter customer name" required/>
-                                </div>
-
-                            </div>
                         <div class="container">
                         <div class="card" style="box-shadow:0 0 25px 0 lightgrey;">
                         <div class="card-body">
@@ -56,12 +43,13 @@
                                         <thead class="thead-dark">
                                             <tr>
                                             <th>#</th>
+                                            
                                             <th scope="col" style="text-align : center;">Item Name</th>
                                             <th scope="col" style="text-align : center;">Total Quantity</th>
                                             <th scope="col" style="text-align : center;">Quantity</th>
                                             <th scope="col" style="text-align : center;">Price</th>
                                             <th scope="col" style="text-align : center;">Total</th>
-                                            
+                                            <th scope="col" style="text-align : center;">barcode</th>
                                             </tr>
                                         </thead>
                                         <tbody id="invoiceItems">
@@ -91,8 +79,9 @@
                                         </div>
 
                             <center style="padding:15px;">
-                            <button style="width:150px;" id="add" type="submit" class="btn btn-success">Add</button>
-                            <button style="width:150px;" id="remove" type="submit" class="btn btn-danger">Remove</button>
+                           <!-- <button style="width:150px;" id="add" type="button" class="btn btn-success">Add</button> -->
+                            <button style="width:150px;" id="scan" type="button" class="btn btn-success">Scan</button>
+                            <button style="width:150px;" id="remove" type="button" class="btn btn-danger">Remove</button>
                             </center>
 
                         </div>
@@ -103,6 +92,21 @@
 
 
                         <p></p>
+
+                        <div class="form-group row">
+                                <label class="col-sm-3 col-form-lable" align="right">Order Date</label>
+                                <div class="col-sm-6">
+                                <input type="text" id="orderDate" name="orderDate" class="form-control form-control-sm " readonly value="<?php echo date("Y-d-m"); ?>">
+                                </div>
+
+                        </div>
+                                <div class="form-group row">
+                                <label class="col-sm-3 col-form-lable" align="right">Customer Name</label>
+                                <div class="col-sm-6">
+                                <input type="text" id="orderCustomer" name="orderCustomer" class="form-control form-control-sm " placeholder="Enter customer name" required/>
+                                </div>
+
+                        </div>
 
                         <div class="form-group row">
 
@@ -164,8 +168,8 @@
                         </div>
 
                         <center style="padding:10px;">
-                            <button style="width:150px;" id="orderForm" type="submit" class="btn btn-info">Order</button>
-                            <button style="width:150px;" id="printInvoice" type="submit" class="btn btn-success d-none">Print</button>
+                            <button style="width:150px;" id="orderForm" type="button" class="btn btn-info">Order</button>
+                            <button style="width:150px;" id="printInvoice" type="button" class="btn btn-success d-none">Print</button>
                         </center>
 
                     </form>

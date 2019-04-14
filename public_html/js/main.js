@@ -135,9 +135,11 @@ jQuery("#login_form_user").on("submit",function(){
                 }else if(data == "PASSWORD_NOT_MATCH") {
                     alert("password is incorect");
     
-                }else{
+                }else if(data == "LOGIN_COMPLETE"){
                  window.location.href=encodeURI(DOMAIN+"/dashboard.php");
                   
+                }else {
+                    alert(data);
                 }
             }
            
@@ -160,7 +162,7 @@ function fetch_category(){
         success : function(data){
             $("#parent_cat").html(data);
             $("#select_category_add").html(data);
-            
+            $("#items_select_category_add").html(data);
         }
 
     })
@@ -177,7 +179,7 @@ function fetch_brand(){
         data : {getbrands:1},
         success : function(data){
             $("#select_brand").html(data);
-                       
+            $("#items_select_brand").html(data);           
         }
 
     })
@@ -374,6 +376,246 @@ jQuery("#form_product_add").on("submit",function(){
   
 
 
+})
+
+jQuery("#form_user_update").on("submit",function(){
+
+    var userNAme = $("#u_name");
+    var status = false;
+    if(userNAme.val() ==""){
+        userNAme.addClass("border-danger");
+        $("#u_error").html("<span class ='text-danger'>please enter user name </span>");
+        var status = false;
+    }else{
+        var status =true;
+    }
+
+    if(status){
+    
+        $.ajax({
+
+            url : DOMAIN+ "/include/process.php",
+            type : "POST",
+            data : $("#form_user_update").serialize(),
+            success : function(data){
+                if(data == "UPDATE_USER"){
+                    alert("Updated");
+                    userNAme.val("");
+                    window.location.href=encodeURI(DOMAIN+"/index.php");
+                }else{
+                    alert("Opps... some error");
+                }
+            
+
+            }
+       
+    })
+    }
+})
+
+/////items
+$("#items_select_category_add").change(function(){
+
+    var cid = $(this).val();
+    var bid =  $("#items_select_brand").val();
+    getItems(cid,bid);
+    
+
+})
+$("#items_select_brand").change(function(){
+
+    var bid = $(this).val();
+    var cid =  $("#items_select_category_add").val();
+    getItems(cid,bid);
+    
+
+})
+
+function getItems(c_id,b_id){
+
+    if(c_id !="" && b_id !=""){
+        $.ajax({
+            url: DOMAIN+ "/include/process.php",
+            type : "POST",
+            data : {getitems:1,cid:c_id,bid:b_id},
+            success : function(data){
+                $("#items_select_product_add").html(data);
+                           
+            }
+
+        })
+    }
+}
+
+$("#items_select_product_add").change(function(){
+
+    var tr = $(this).parent().parent();
+    var p_id = $(this).val();
+    
+    if(p_id !=""){
+        $.ajax({
+            url: DOMAIN+ "/include/process.php",
+            type : "POST",
+            dataType : "json",
+            data : {getProductQty:1,pid:p_id},
+            success : function(data){
+               tr.find(".c_qty").val(data["product_stock"]);
+            }
+
+        })
+    }
+
+    
+
+})
+
+jQuery("#form_items_add").on("submit",function(){
+
+    var items_added_date = $("#stock_date");
+    var product_name =$("#items_select_product_add");
+    var select_category = $("#items_select_category_add");
+    var select_brand = $("#items_select_brand");
+    var get_price = $("#get_price");
+    var item_quantity = $("#items_quantity");
+    var Grn = $("#items_grn");
+    var Exp_date = $("#items_exp_date");
+    var currentQty =$("#c_qty");
+    var status = false;
+
+    if(items_added_date.val() ==""){
+        items_added_date.addClass("border-danger");
+        $("#i_date_error").html("<span class ='text-danger'>please enter stock date </span>");
+        var status = false;
+    }else{
+        items_added_date.removeClass("border-danger");
+        $("#i_date_error").html("");
+        var status = true; 
+    }
+
+    if(product_name.val() == null){
+        product_name.addClass("border-danger");
+        $("#i_prduct_error").html("<span class ='text-danger'>please select product name </span>");
+        var status = false;
+    }else{
+        product_name.removeClass("border-danger");
+        $("#i_prduct_error").html("");
+        var status = true; 
+    }
+
+    if(select_category.val() ==""){
+        select_category.addClass("border-danger");
+        $("#i_cat_error").html("<span class ='text-danger'>please select category </span>");
+        var status = false;
+    }else{
+        select_category.removeClass("border-danger");
+        $("#i_cat_error").html("");
+        var status = true; 
+    }
+
+    if(select_brand.val() ==""){
+        select_brand.addClass("border-danger");
+        $("#i_brand_error").html("<span class ='text-danger'>please select brand </span>");
+        var status = false;
+    }else{
+        select_brand.removeClass("border-danger");
+        $("#i_brand_error").html("");
+        var status = true; 
+    }
+
+    if(get_price.val() ==""){
+        get_price.addClass("border-danger");
+        $("#i_price_error").html("<span class ='text-danger'>please enter Get price </span>");
+        var status = false;
+    }else{
+        get_price.removeClass("border-danger");
+        $("#i_price_error").html("");
+        var status = true; 
+    }
+
+    if(item_quantity.val() ==""){
+        item_quantity.addClass("border-danger");
+        $("#i_quntity_error").html("<span class ='text-danger'>please enter quantity </span>");
+        var status = false;
+    }else{
+        item_quantity.removeClass("border-danger");
+        $("#i_quntity_error").html("");
+        var status = true; 
+    }
+
+    if(Grn.val() ==""){
+        Grn.addClass("border-danger");
+        $("#i_grn_error").html("<span class ='text-danger'>please enter GRN </span>");
+        var status = false;
+    }else{
+        Grn.removeClass("border-danger");
+        $("#i_grn_error").html("");
+        var status = true; 
+    }
+
+    if(Exp_date.val() ==""){
+        Exp_date.addClass("border-danger");
+        $("#i_exp_date_error").html("<span class ='text-danger'>please enter Expire date </span>");
+        var status = false;
+    }else{
+        Exp_date.removeClass("border-danger");
+        $("#i_exp_date_error").html("");
+        var status = true; 
+    }
+
+    if(status){
+       var barcode = prompt("Scan barcode","");
+       if(barcode !=null || barcode !=""){
+        $.ajax({
+
+            url : DOMAIN+ "/include/process.php",
+            type : "POST",
+            data : {insertItems:1,barcode:barcode,stock_date:items_added_date.val(),items_select_product_add:product_name.val(),get_price:get_price.val(),items_quantity:item_quantity.val(),items_grn:Grn.val(),items_exp_date:Exp_date.val(),current_qty:currentQty.val()},
+            success : function(data){
+              
+            if(data == "ITEMS_IS_ADD UPDATE_COMPLETE"){
+                alert("Items Add is completed");
+                $("#items_select_product_add").val("");
+                $("#get_price").val("");
+                $("#items_quantity").val("");
+                $("#items_grn").val("");
+                $("#items_exp_date").val("");
+                
+            }else{
+
+                alert(data);
+            }
+
+            }
+       
+    })
+  
+    }
+
+    }
+
+})
+
+$(".logOut").click(function(){
+
+    
+    $.ajax({
+
+        url : DOMAIN+ "/include/process.php",
+        type : "POST",
+        data : {logOutFunction:1},
+        success : function(data){
+            if(data == "True"){
+                
+                window.location.href=encodeURI(DOMAIN+"/index.php");
+
+            }else{
+                alert("Opps... some error");
+            }
+        
+
+        }
+   
+})
 })
 
 

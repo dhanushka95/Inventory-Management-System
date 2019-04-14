@@ -9,7 +9,7 @@
             <a class="nav-link" href="dashboard.php"><i class="fa fa-home">&nbsp;</i>Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="#"><i class="fa fa-user">&nbsp;</i>Logout</a>
+            <a class="nav-link logOut" href="index.php"><i class="fa fa-user">&nbsp;</i>Logout</a>
         </li>
         
         </ul>

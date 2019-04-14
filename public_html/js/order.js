@@ -4,11 +4,11 @@ jQuery(document).ready(function(){
     var DOMAIN = "http://localhost/inventory/public_html";
 
 
-    $("#add").click(function(){
+    // $("#add").click(function(){
 
-        AddNewRow();
+    //     AddNewRow();
 
-    })
+    // })
 
     $("#remove").click(function(){
 
@@ -29,10 +29,11 @@ jQuery(document).ready(function(){
             data : {getPriceAndQty:1,id:pid},
             success : function(data){
                
-              
+                tr.find(".p_n").val(data["product_name"]);
                 tr.find(".tqty").val(data["product_stock"]);
                 tr.find(".pro_name").val(data["product_name"]);
-                tr.find(".qty").val(1);
+                //tr.find(".qty").val(1);
+                $("#invoiceItems tr:last td:nth-child(4) input").val(1);
                 tr.find(".price").val(data["product_price"]);
                 tr.find(".amount").html(tr.find(".qty").val() * tr.find(".price").val());
                 
@@ -57,7 +58,10 @@ jQuery(document).ready(function(){
             }
     
         })
-    
+       
+        
+        
+        
     }
 
     $("#invoiceItems").delegate(".qty","keyup",function(){
@@ -156,15 +160,16 @@ jQuery(document).ready(function(){
 
                         if(confirm("Do you want to Print Invoice")){
 
-
+                            window.location.href = "";
                          window.open(
                             DOMAIN+"/include/invoice.php?invoiveNo="+data+"&"+invoiceData
                             ,
                             '_blank'
                           );
+
                         }
                     }else {
-                        alert("ERROR");
+                        alert(data);
                     }
     
                 }
@@ -182,5 +187,61 @@ jQuery(document).ready(function(){
     
     })
 
+    
+    $("#scan").click(function(){
+
+       // $("#invoiceItems tr:last td:nth-child(2) input").focus();
+       AddNewRow();
+
+        var bVal =prompt("Scan","");
+        
+       // $("#invoiceItems tr:last td:nth-child(2) input").val(bVal);
+       BarcodeToPid(bVal);
+        
+    })
+
+    
+    // $("#invoiceItems").delegate(".barcode","keypress",function(){
+
+    //     var keycode = (event.keyCode ? event.keyCode : event.which);
+
+    //     if(keycode == '13'){
+    //         var barcodeVal = $("#invoiceItems tr:last td:nth-child(2) input").val();
+            
+    //         BarcodeToPid(barcodeVal);
+            
+    //     }
+    // })
+
+    function BarcodeToPid(barcodeVal){
+
+        
+        $.ajax({
+            url: DOMAIN+ "/include/process.php",
+            method : "POST",
+            dataType : "json",
+            data : {barcodeToPid:1,bar:barcodeVal},
+            success : function(data){
+
+               
+                if(data == "Item Not Active" ){
+                    alert("Make sure This product is currently Deactivete");
+                    $("#remove").click();
+                }else{
+                    $("#invoiceItems tr:last td:nth-child(2) input").val(data["pid"]);
+                    $("#invoiceItems tr:last td:last-child input").val(barcodeVal);
+
+                    $(".pid").change(); 
+                   
+                }
+            }
+        })
+
+            
+    }
+
+        
+    
+   
 
 })

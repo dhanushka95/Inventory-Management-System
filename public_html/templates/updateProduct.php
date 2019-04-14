@@ -48,13 +48,13 @@
                     <small id="p_price_error" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
-                    <label>Quantity</label>
+                    <label>Minimum Quantity</label>
                     <input type="text" class="form-control" id="product_quantity" name="product_quantity">
                     <small id="p_quntity_error" class="form-text text-muted"></small>
                 </div>
             
         
-                <button type="submit" class="btn btn-success">Update</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-spinner">&nbsp;</i>Update</button>
     </form>
 
         </div>

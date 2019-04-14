@@ -12,6 +12,8 @@ include_once("../fpdf/fpdf.php");
     $pdf->Cell(50,10,$_GET["orderDate"],0,1);
     $pdf->Cell(50,10,"Customer Name :",0,0);
     $pdf->Cell(50,10,$_GET["orderCustomer"],0,1);
+    $pdf->Cell(50,10,"Bill No :",0,0);
+    $pdf->Cell(50,10,$_GET["invoiveNo"],0,1);
 
     $pdf->Cell(50,10,"",0,1);
 
@@ -51,7 +53,7 @@ include_once("../fpdf/fpdf.php");
     $pdf->Cell(50,10,"Payment Type",0,0);
     $pdf->Cell(50,10,": ".$_GET["paymentType"],0,1);
 
-    $pdf->Cell(180,10,"Signature : ..................",0,0,"R");
+    $pdf->Cell(180,10,"Signature :____________________________",0,0,"R");
     
 
     $pdf->output("../InvoiceSave/INVOICE_".$_GET["invoiveNo"].".pdf" , "F");

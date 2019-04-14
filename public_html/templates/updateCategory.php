@@ -24,7 +24,7 @@
                    </select>
                     </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-spinner">&nbsp;</i>Update</button>
              </form>
 
 

@@ -23,6 +23,25 @@
 
     <div class="container">
 
+                    <nav class="navbar navbar-dark bg-dark">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
+                        </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2 searchCategoryText" id="searchCategoryText" name="searchCategoryText" type="search" placeholder="Type category name" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0 btnCategorySearch" id="btnCategorySearch" name="btnCategorySearch" type="button">Search</button>
+                        </form>
+                    </div>
+                    </nav>
+
+    <div class="table-responsive-sm">
                 <table class="table table-hover table-bordered">
                 <thead class="thead-dark">
                     <tr>
@@ -50,7 +69,8 @@
                 </tbody>
                 </table>
 
-
+    </div>
+    
     </div>
 <!-- add model -->
     <?php

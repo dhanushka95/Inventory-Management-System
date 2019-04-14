@@ -23,39 +23,48 @@
 
     <div class="container">
 
-                    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Search <span class="sr-only">(current)</span></a>
-                        </li>
-                        </ul>
-                        <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2 searchBrandText" name="searchBrandText" id="searchBrandText" type="search" placeholder="Type brand name" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0 btnBrandSearch" name="btnBrandSearch" id ="btnBrandSearch" type="button">Search</button>
-                        </form>
-                    </div>
-                    </nav>
 
+                    <a class="navbar-brand" href="#">Barcode Scan : </a>
+
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                     
+                        <form class="form-inline my-2 my-lg-0" id ="form_item_scan" name ="form_item_scan" onsubmit="return false" >
+                           <button class="btn btn-outline-success my-2 my-sm-0 barcodeScan" id="barcodeScan" name="barcodeScan">Scan</button>
+                        </form>
+
+                    </div>
+                </nav>
     <div class="table-responsive-sm">
                 <table class="table table-hover table-bordered">
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
+                    <th scope="col">GRN</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Brand</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Get price</th>
+                    <th scope="col">Exp Date</th>
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
+                    
                     </tr>
                 </thead>
-                <tbody id="getBrandManage">
+                <tbody id="getItemManage">
                     <!-- <tr>
                     <th scope="row">1</th>
+                    <td>123dd</td>
+                    <td>ic</td>
                     <td>Electronic</td>
-                   
+                    <td>kings</td>
+                    <td>1000</td>
+                    <td>2018-10-10</td>
+                    <td>2019-5-10</td>
                     <td>
                         <a href="#" class ="btn btn-success btn-sm">Active</a>
                     </td>
@@ -69,11 +78,10 @@
                 </table>
     </div>
 
-
     </div>
 <!-- add model -->
     <?php
-        include_once("./templates/updateBrand.php");
+        include_once("./templates/updateitem.php");
     ?>
     
    

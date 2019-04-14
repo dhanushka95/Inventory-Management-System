@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Products Add</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -15,7 +15,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                     <label>Date</label>
-                    <input type="text" class="form-control" id="added_date" name="added_date"  value="<?php echo date("Y-m-d"); ?>" >
+                    <input type="date" class="form-control" id="added_date" name="added_date"  value="<?php echo date("Y-m-d"); ?>" >
                     <small id="date_error" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group col-md-6">
@@ -47,13 +47,13 @@
                     <small id="p_price_error" class="form-text text-muted"></small>
                 </div>
                 <div class="form-group">
-                    <label>Quantity</label>
+                    <label>Minimum Quantity</label>
                     <input type="text" class="form-control" id="product_quantity" name="product_quantity">
                     <small id="p_quntity_error" class="form-text text-muted"></small>
                 </div>
             
         
-                <button type="submit" class="btn btn-success">Add product</button>
+                <button type="submit" class="btn btn-success"><i class="fa fa-level-down">&nbsp;</i>Add</button>
     </form>
 
         </div>
