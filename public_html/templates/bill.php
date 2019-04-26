@@ -36,6 +36,7 @@
                             <th scope="col">Category name</th>
                             <th scope="col">Brand name</th>
                             <th scope="col">Barcode</th>
+                            <th scope="col">GRN</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Toatal Price(Rs)</th>
                             </tr>

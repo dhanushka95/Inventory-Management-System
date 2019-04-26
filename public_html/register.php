@@ -40,6 +40,11 @@
                             <small id="email_error" class="form-text text-muted"></small>
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputEmail1">Phone number</label>
+                            <input type="text" class="form-control" id="phone" name="phone"  placeholder="phone number">
+                            <small id="phone_error" class="form-text text-muted"></small>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
                             <small id="password1_error" class="form-text text-muted"></small>

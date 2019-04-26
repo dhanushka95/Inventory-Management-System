@@ -80,8 +80,8 @@
 
                             <center style="padding:15px;">
                            <!-- <button style="width:150px;" id="add" type="button" class="btn btn-success">Add</button> -->
-                            <button style="width:150px;" id="scan" type="button" class="btn btn-success">Scan</button>
-                            <button style="width:150px;" id="remove" type="button" class="btn btn-danger">Remove</button>
+                            <button style="width:150px;" id="scan" type="button" class="btn btn-success"><i class="fa fa-barcode">&nbsp;</i>Scan</button>
+                            <button style="width:150px;" id="remove" type="button" class="btn btn-danger"><i class="fa fa-close">&nbsp;</i>Remove</button>
                             </center>
 
                         </div>
@@ -168,7 +168,7 @@
                         </div>
 
                         <center style="padding:10px;">
-                            <button style="width:150px;" id="orderForm" type="button" class="btn btn-info">Order</button>
+                            <button style="width:150px;" id="orderForm" type="button" class="btn btn-info"><i class="fa fa-file-text">&nbsp;</i>Order</button>
                             <button style="width:150px;" id="printInvoice" type="button" class="btn btn-success d-none">Print</button>
                         </center>
 

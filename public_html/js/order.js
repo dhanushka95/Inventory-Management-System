@@ -160,16 +160,17 @@ jQuery(document).ready(function(){
 
                         if(confirm("Do you want to Print Invoice")){
 
-                            window.location.href = "";
+                           
                          window.open(
                             DOMAIN+"/include/invoice.php?invoiveNo="+data+"&"+invoiceData
                             ,
                             '_blank'
                           );
+                          window.location.href = DOMAIN+"/newOrder.php";
 
                         }
                     }else {
-                        alert(data);
+                        alert("Operation fail");
                     }
     
                 }

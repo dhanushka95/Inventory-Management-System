@@ -13,6 +13,7 @@ jQuery("#register_form_user").on("submit",function(){
     var password1 = $("#password1");
     var password2 = $("#password2");
     var usertype = $("#usertype");
+    var phone = $("#phone");
     var status = false;
 
     if(name.val() ==""){
@@ -22,6 +23,26 @@ jQuery("#register_form_user").on("submit",function(){
     }else{
         name.removeClass("border-danger");
         $("#user_error").html("");
+        status = true;
+    }
+
+    if(email.val() ==""){
+        email.addClass("border-danger");
+        $("#email_error").html("<span class ='text-danger'>please enter Email </span>");
+        status = false;
+    }else{
+        email.removeClass("border-danger");
+        $("#email_error").html("");
+        status = true;
+    }
+
+    if(phone.val() ==""){
+        phone.addClass("border-danger");
+        $("#phone_error").html("<span class ='text-danger'>please enter phone number </span>");
+        status = false;
+    }else{
+        phone.removeClass("border-danger");
+        $("#phone_error").html("");
         status = true;
     }
 
@@ -380,37 +401,8 @@ jQuery("#form_product_add").on("submit",function(){
 
 jQuery("#form_user_update").on("submit",function(){
 
-    var userNAme = $("#u_name");
-    var status = false;
-    if(userNAme.val() ==""){
-        userNAme.addClass("border-danger");
-        $("#u_error").html("<span class ='text-danger'>please enter user name </span>");
-        var status = false;
-    }else{
-        var status =true;
-    }
+    userUpdate();
 
-    if(status){
-    
-        $.ajax({
-
-            url : DOMAIN+ "/include/process.php",
-            type : "POST",
-            data : $("#form_user_update").serialize(),
-            success : function(data){
-                if(data == "UPDATE_USER"){
-                    alert("Updated");
-                    userNAme.val("");
-                    window.location.href=encodeURI(DOMAIN+"/index.php");
-                }else{
-                    alert("Opps... some error");
-                }
-            
-
-            }
-       
-    })
-    }
 })
 
 /////items
@@ -618,6 +610,174 @@ $(".logOut").click(function(){
 })
 })
 
+// $(".checkChangeP").click(function(){
+
+//     if($(this).prop("checked")== true){
+
+        
+//     }else{
+
+//     }
+
+// })
+function userUpdate(){
+
+    if($(".checkChangeP").prop("checked") == false){
+        
+            var userNAme = $("#u_name");
+            var phone = $("#ph");
+            var status = true;
+            if(userNAme.val() =="" ){
+                userNAme.addClass("border-danger");
+                $("#u_error").html("<span class ='text-danger'>please enter user name </span>");
+                var status = false;
+            }
+
+
+            if(phone.val() =="" ){
+                phone.addClass("border-danger");
+                $("#ph_error").html("<span class ='text-danger'>please enter phone number </span>");
+                var status = false;
+            }
+
+
+            if(status){
+            
+                $.ajax({
+
+                    url : DOMAIN+ "/include/process.php",
+                    type : "POST",
+                    data : $("#form_user_update").serialize(),
+                    success : function(data){
+                        if(data == "UPDATE_USER"){
+                            alert("Updated");
+                            userNAme.val("");
+                            window.location.href=encodeURI(DOMAIN+"/index.php");
+                        }else{
+                            alert("Opps... some error");
+                        }
+                    
+
+                    }
+            
+            })
+            }
+    }else{
+        
+    var userNAme = $("#u_name");
+    var newP=$("#u_new_password");
+    var cP=$("#u_password");
+    var vp=$("#u_verfy_password");
+    var phone = $("#ph");
+    var status = true;
+    
+
+    if(phone.val() =="" ){
+        phone.addClass("border-danger");
+        $("#ph_error").html("<span class ='text-danger'>please enter phone number </span>");
+        var status = false;
+    }
+
+    if(userNAme.val() ==""){
+        userNAme.addClass("border-danger");
+        $("#u_error").html("<span class ='text-danger'>please enter user name </span>");
+        var status = false;
+        }
+         if(cP.val() ==""){
+
+             cP.addClass("border-danger");
+             $("#u_c_p_error").html("<span class ='text-danger'>please enter password</span>");
+             var status = false;
+        }
+         if(newP.val() ==""){
+            newP.addClass("border-danger");
+            $("#u_n_p_error").html("<span class ='text-danger'>please enter new password</span>");
+            var status = false;
+         }
+         
+         if(vp.val() ==""){
+             vp.addClass("border-danger");
+             $("#u_v_p_error").html("<span class ='text-danger'>please enter verify password</span>");
+            var status = false;
+        } 
+        if(vp.val() != newP.val()){
+            vp.addClass("border-danger");
+            $("#u_v_p_error").html("<span class ='text-danger'> verify password fail</span>");
+            var status = false;
+        }
+
+        if(status){
+        
+            $.ajax({
+
+                url : DOMAIN+ "/include/process.php",
+                type : "POST",
+                data : $("#form_user_update").serialize(),
+                success : function(data){
+                    if(data == "UPDATE_USER"){
+                        alert("Updated");
+                        userNAme.val("");
+                        cP.val("");
+                        vp.val("");
+                        newP.val("");
+
+                        window.location.href=encodeURI(DOMAIN+"/index.php");
+                    }else{
+                        alert("Opps... some error");
+                    }
+                
+
+                }
+        
+        })
+        }
+}
+
+}
+
+$(".send_sms").click(function(){
+
+var email =prompt("Enter Email ","");
+
+if(email !="" && email != null){
+    
+            $.ajax({
+
+                url : DOMAIN+ "/include/process.php",
+                type : "POST",
+                data : {getPasswordPhone:1,emailP:email},
+                success : function(data){
+
+                    if(data != null){
+
+
+                                $.ajax({
+
+                                    url : DOMAIN+ "/include/process.php",
+                                    type : "POST",
+                                    data : {sendSms:1,dataset:data},
+                                    success : function(data){
+                                            if(data ="SEND"){
+
+                                                alert("we send sms. Please check your mobile phone");
+                                            }else {
+                                                alert("we can't send sms");
+                                           
+                                            }
+                                    }
+                    
+                            })
+
+                    }else {
+                        alert("Email is not correct");
+                    }
+
+                }
+
+        })
+}
+
+})
 
 
 })

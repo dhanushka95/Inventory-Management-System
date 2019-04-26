@@ -4,11 +4,12 @@ include_once("../database/constant.php");
 include_once("user.php");
 include_once("dbOperation.php");
 include_once("manage.php");
+include_once("sms.php");
 
 // user register
 if(isset($_POST["username"]) AND isset($_POST["email"])){
     $user = new user();
-    $result = $user->userCreateAccount($_POST["username"],$_POST["email"],$_POST["password1"],$_POST["usertype"]);
+    $result = $user->userCreateAccount($_POST["username"],$_POST["email"],$_POST["password1"],$_POST["usertype"],$_POST["phone"]);
 
     echo $result;
 }
@@ -440,10 +441,10 @@ if(isset($_POST["orderDate"]) AND isset($_POST["orderCustomer"])){
 
 }
 //update user name
-if(isset($_POST["u_name"])){
+if(isset($_POST["u_name"]) AND isset($_POST["ph"])){
     
     $mngr = new user();
-    $result = $mngr->UpdateUser($_POST["u_name"],$_SESSION["uid"]);
+    $result = $mngr->UpdateUser($_POST["u_name"],$_SESSION["uid"],$_POST["u_new_password"],$_POST["u_password"],$_POST["ph"]);
     echo $result;
     
     exit();
@@ -471,6 +472,7 @@ if(isset($_POST["manageBill"])){
                             <td><?php echo $row["category_name"]; ?></td>
                             <td><?php echo $row["brand_name"]; ?></td>
                             <td><?php echo $row["barcode"]; ?></td>
+                            <td><?php echo $row["invoice_no"]; ?></td>
                             <td><?php echo $row["qty"]; ?></td>
                             <td><?php echo ($row["price"]) * ($row["qty"]); ?></td>
                             </tr>
@@ -688,6 +690,20 @@ if(isset($_POST["barcodeToPid"]) AND isset($_POST["bar"])){
 if(isset($_POST["logOutFunction"])){
     session_destroy();
     echo "True";
+}
+
+if(isset($_POST["sendSms"]) AND isset($_POST["dataset"])){
+
+    $Arry = preg_split ("/\,/", $_POST["dataset"]);
+    $sms = new sms();
+    $result = $sms ->sendSms($Arry[0],$Arry[1]);
+    echo $result;
+}
+if(isset($_POST["getPasswordPhone"]) AND isset($_POST["emailP"])){
+
+    $u = new user();
+    $result = $u ->EToPP($_POST["emailP"]);
+    echo $result;
 }
 
 ?>

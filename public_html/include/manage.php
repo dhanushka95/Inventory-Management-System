@@ -312,7 +312,7 @@ function __construct(){
 
     public function getBillDetails($billNo){
 
-        $sql ="SELECT p.product_name,i.barcode,c.category_name,b.brand_name,i.qty,i.price FROM invoice_details i, products p, category c, brand b WHERE i.product_name=p.pid AND p.bid=b.bid AND p.cid= c.cid AND i.invoice_no=".$billNo;
+        $sql ="SELECT p.product_name,i.barcode,c.category_name,b.brand_name,i.qty,i.price,u.invoice_no FROM invoice_details i, products p, category c, brand b,item u WHERE i.product_name=p.pid AND p.bid=b.bid AND p.cid= c.cid AND u.barcode = i.barcode AND i.invoice_no=".$billNo;
         $result = $this->con->query($sql);
         $rows = array();
         if($result->num_rows >0){

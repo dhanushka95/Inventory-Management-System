@@ -16,9 +16,9 @@
 </head>
 <body>
        <!--- navigation bar -->
-    <?php include_once("./templates/header.php"); 
+     <?php include_once("./templates/tempheader.php"); 
     
-    ?>
+    ?> 
 
     <br/><br/>
     <div class="container">
@@ -60,7 +60,7 @@
         </form>
         
         </div>
-        <div class="card-footer"><a href="#">Forget password ?</a></div>
+        <div class="card-footer"><a class="send_sms" href="#">Forget password ?</a></div>
         </div>
     </div>
 
